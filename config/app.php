@@ -231,5 +231,6 @@ return [
     ],
 
     'faker_locale' => 'zh_CN',
+    'per_page' => '20',
 
 ];

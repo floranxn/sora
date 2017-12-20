@@ -14,3 +14,7 @@
 Route::post('login', 'AuthenticateController@login');
 Route::post('logout', 'AuthenticateController@logout');
 Route::post('refresh', 'AuthenticateController@refresh');
+
+Route::resource('users', 'UsersController', ['except' => [
+    'create', 'edit',
+]]);

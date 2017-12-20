@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Http\Filters\UserFilters;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use SoftDeletes, Notifiable;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'uname', 'email', 'mobile', 'password',
+        'uname', 'email', 'mobile', 'password', 'avatar', 'status',
     ];
 
     /**
@@ -25,8 +29,13 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'deleted_at',
     ];
+
+    public function scopeFilter($query, UserFilters $filters)
+    {
+        return $filters->apply($query);
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

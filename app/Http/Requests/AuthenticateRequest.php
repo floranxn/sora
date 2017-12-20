@@ -12,8 +12,8 @@ class AuthenticateRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required_without:mobile|exists:users|email',
-            'mobile' => 'required_without:email|exists:users',
+            'email' => 'required_without:mobile|email|exists:users',
+            'mobile' => 'required_without:email|digits:11|exists:users',
             'password' => 'required|between:4,60',
         ];
     }
