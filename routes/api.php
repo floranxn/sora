@@ -18,3 +18,7 @@ Route::post('refresh', 'AuthenticateController@refresh');
 Route::resource('users', 'UsersController', ['except' => [
     'create', 'edit',
 ]]);
+
+Route::resource('articles', 'ArticlesController', ['except' => [
+    'create', 'edit',
+]]);
